@@ -5,14 +5,31 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-
+<div class="container">
 <h1>Welcome to the home page!</h1>
-<a href="/myprofile">My profile</a>
-<a href="/signup">Sign Up</a>
-<a href="/login">login</a>
+
+<form action="/AddPost" method="post">
+
+    <label for="body">Add your post </label>
+
+    <label for="body">Enter The Body </label>
+
+    <input id="body" name="body" type="text">
+
+    <tr>
+        <td><input name="submit" type="submit" value="submit" /></td>
+    </tr>
+</form>
+</div>
 
 </body>
+<footer>
+    <a href="/myprofile">My profile</a>
+<a href="/signup">Sign Up</a>
+<a href="/login">login</a>
+</footer>
 </html>

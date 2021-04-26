@@ -5,23 +5,77 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class ApplicationUser implements UserDetails {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     private String password;
     @Column(unique = true)
     private String username;
+    private String bio;
+    private String firstName;
+    private String lastName;
+    private String dateOfBirth;
+    private String post;
 
-public ApplicationUser(){
+    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostPage> posts;
 
-}
-public ApplicationUser(String userName,String password){
-    this.username=userName;
-    this.password=password;
-}
+    public ApplicationUser(){
+
+    }
+    public ApplicationUser(String userName,String password,String post){
+        this.username=userName;
+        this.password=password;
+        this.post=post;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+
+    public ApplicationUser(String username, String password, String firstName, String lastName, String dateOfBirth, String bio) {
+        this.password = password;
+        this.username = username;
+        this.bio = bio;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -79,5 +133,13 @@ public ApplicationUser(String userName,String password){
         return "ApplicationUser{" +
                 "userName='" + this.username + '\'' +
                 '}';
+    }
+
+    public List<PostPage> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<PostPage> posts) {
+        this.posts = posts;
     }
 }
