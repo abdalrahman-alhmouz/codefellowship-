@@ -34,18 +34,7 @@
 </div>
 
 
-    <p>List of other users:</p>
-    <ul>
-        <li class="friends" th:each="user : ${user}">
-            <form method="POST" action="#" th:action="@{/friends/${user.id}/friends}">
-                <input name="name" type="hidden" th:value="${user.id}">
-                    <button type="submit">Add friend</button>            </form>
-            <a th:href="@{/friends/} + ${user.id}">
-                <span th:text="${user.username}"></span><br>
 
-            </a>
-        </li>
-    </ul>
 
 <div th:each="post : ${user.posts}">
 <h3 th:text="${post.body}"> this is the body: </h3>
