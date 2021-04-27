@@ -6,18 +6,50 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styleProfile.css">
 
 </head>
 <body>
     <div class="container">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_AG5ARtLnwl0DMyWqBsIdsX2lvoDhetRg-g&usqp=CAU" alt="">
+            <h2>Welcome to <span th:text="${user.username}"/>'s profile ....</h2>
+            <h2>full Name : <span th:text="${user.firstName}"/>
+            -<span th:text="${user.lastName}"/></h2>
+            <h2>dateOfBirth : <span th:text="${user.dateOfBirth}"/></h2>
+            <h2>Bio <span th:text="${user.bio}"/></h2>
+    </div>
+<div class="forme">
+        <form action="/AddPost" method="post">
 
-<h2> hello  <span th:text="${user.username}"/> Welcome to your profile ....</h2>
-<h1>hello there in my profile page</h1>
+            <label for="body">Add your post </label>
+
+            <label for="body">Enter The Body </label>
+
+            <input id="body" name="body" type="text">
+
+            <tr>
+                <td><button type="submit">Add Your post </button></td>
+            </tr>
+        </form>
+</div>
+
+
+    <p>List of other users:</p>
+    <ul>
+        <li class="friends" th:each="user : ${user}">
+            <form method="POST" action="#" th:action="@{/friends/${user.id}/friends}">
+                <input name="name" type="hidden" th:value="${user.id}">
+                    <button type="submit">Add friend</button>            </form>
+            <a th:href="@{/friends/} + ${user.id}">
+                <span th:text="${user.username}"></span><br>
+
+            </a>
+        </li>
+    </ul>
 
 <div th:each="post : ${user.posts}">
 <h3 th:text="${post.body}"> this is the body: </h3>
-</div>
+
 </div>
 
 </body>

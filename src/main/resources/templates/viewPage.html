@@ -6,19 +6,43 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/styleProfile.css">
 
 </head>
 <body>
-    <div class="container">
-
-<h2>Welcome to <span th:text="${user.username}"/>'s profile ....</h2>
-<h2>Welcome to <span th:text="${user.lastName}"/>'s profile ....</h2>
-<h2>Welcome to <span th:text="${user.lastName}"/>'s profile ....</h2>
-<h2>Welcome to <span th:text="${user.dateOfBirth}"/>'s profile ....</h2>
-<h2>Welcome to <span th:text="${user.bio}"/>'s profile ....</h2>
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_AG5ARtLnwl0DMyWqBsIdsX2lvoDhetRg-g&usqp=CAU" alt="">
+<div class="container">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_AG5ARtLnwl0DMyWqBsIdsX2lvoDhetRg-g&usqp=CAU" alt="">
+    <h2>Welcome to <span th:text="${user.username}"/>'s profile ....</h2>
+    <h2>full Name : <span th:text="${user.firstName}"/>
+        -<span th:text="${user.lastName}"/></h2>
+    <h2>dateOfBirth : <span th:text="${user.dateOfBirth}"/></h2>
+    <h2>Bio <span th:text="${user.bio}"/></h2>
+    <h2>Bio <span th:text="${user.id}"/></h2>
 </div>
+
+
+<div th:each="post : ${user.posts}">
+    <h3 th:text="${post.body}"> this is the body: </h3>
+
+</div>
+
+<p>List of other users:</p>
+<ul>
+    <li class="friends" th:each="val : ${allUsers}">
+        <form method="POST" action="/AddFriend" >
+            <input name="id" type="text" th:value="${val.id}">
+            <input name="friend" type="text" th:value="${user.id}">
+<!--         <h1>   </h1>-->
+<!--            <span "${user.lastName}">sss</span>-->
+<!--            <span "${user.username}">sss</span>-->
+            <button  type="submit" >follwo</button>
+        </form>
+        <a th:href="@{/friends/} + ${val.id}">
+            <span th:text="${val.username}"></span><br>
+
+        </a>
+    </li>
+</ul>
 
 </body>
 </html>

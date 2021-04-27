@@ -14,6 +14,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
         import java.security.Principal;
         import java.util.ArrayList;
+import java.util.List;
+
+import static org.hibernate.internal.util.collections.ArrayHelper.toList;
 
 @Controller
 public class ApplicationUserController {
@@ -48,7 +51,7 @@ public String loginpage(){
         newUser = applicationUserRepository.save(newUser);
         return new RedirectView("/hiMan");
     }
-    
+
     @GetMapping("/myprofile")
     public String getUserProfilePage(Principal p,Model m){
         ApplicationUser applicationUser=(ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
@@ -74,14 +77,62 @@ public String loginpage(){
     }
 
 
-    @GetMapping("/view/{id}")
-    public String getAlbum(@PathVariable(value="id")Integer id ,Model m){
-        ApplicationUser user=applicationUserRepository.findById(id).get();
-        m.addAttribute("user",user);
+//    @GetMapping("/view/{id}")
+//    public String getAlbum(@PathVariable(value="id")Integer id ,Model m){
+//        ApplicationUser user=applicationUserRepository.findById(id).get();
+//        m.addAttribute("user",user);
+//
 
-        return "viewPage.html";
+//
+//        return "viewPage.html";
+//    }
+
+
+@GetMapping("/view/{id}")
+public String getAlbum(@PathVariable(value="id")Integer id ,Model m){
+    ApplicationUser user=applicationUserRepository.findById(id).get();
+    m.addAttribute("user",user);
+
+    Iterable<ApplicationUser> allUsers = applicationUserRepository.findAll();
+    m.addAttribute("allUsers",allUsers);
+
+    return "viewPage.html";
+}
+
+
+
+    @GetMapping("/friends/{id}")
+    public String getMyProfile(@PathVariable Integer id, Model m){
+        ApplicationUser friend = applicationUserRepository.findById(id).get();
+        m.addAttribute("principal", friend);
+
+        Iterable<ApplicationUser> allUsers = applicationUserRepository.findAll();
+        for (ApplicationUser name : allUsers) {
+            System.out.println(name.id);
+        }        System.out.println(allUsers);
+        m.addAttribute("allUsers",allUsers);
+        return "test.html";
     }
 
+    @PostMapping("/AddFriend")
+    public RedirectView addFriend(@RequestParam(value = "id") Integer id,@RequestParam(value = "friend") Integer friend) {
+        System.out.println("newfriend.friendsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+
+        // we have the ID of two users
+        // go get actual AppUser instances
+        ApplicationUser curfriend = applicationUserRepository.findById(id).get();
+        ApplicationUser newfriend = applicationUserRepository.findById(friend).get();
+        System.out.println("newfriend.friendsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
+        // use the principal: check both of the dinosaurs belong to the currently logged in user
+        // make them be friends
+        curfriend.friends.add(newfriend);
+        newfriend.friends.add(curfriend);
+        // save! yes please omg
+        applicationUserRepository.save(curfriend);
+        applicationUserRepository.save(newfriend);
+        // redirect back to the current dino
+        return new RedirectView("/friends/" + id);
+    }
 
 
 }
