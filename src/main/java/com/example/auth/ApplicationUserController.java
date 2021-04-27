@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
         import java.security.Principal;
         import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.hibernate.internal.util.collections.ArrayHelper.toList;
 
@@ -118,21 +119,32 @@ public String getAlbum(@PathVariable(value="id")Integer id ,Model m){
     public RedirectView addFriend(@RequestParam(value = "id") Integer id,@RequestParam(value = "friend") Integer friend) {
         System.out.println("newfriend.friendsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
 
-        // we have the ID of two users
-        // go get actual AppUser instances
+
+
         ApplicationUser curfriend = applicationUserRepository.findById(id).get();
         ApplicationUser newfriend = applicationUserRepository.findById(friend).get();
-        System.out.println("newfriend.friendsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
-        // use the principal: check both of the dinosaurs belong to the currently logged in user
-        // make them be friends
+
+
+
         curfriend.friends.add(newfriend);
         newfriend.friends.add(curfriend);
-        // save! yes please omg
+
         applicationUserRepository.save(curfriend);
         applicationUserRepository.save(newfriend);
-        // redirect back to the current dino
+
         return new RedirectView("/friends/" + id);
     }
+    @GetMapping(value = "/feed")
+    public String getFeed(Model m, Principal p) {
+        //get current user
+        ApplicationUser currentUser = applicationUserRepository.findByUsername(p.getName());
+        Set<ApplicationUser> followFriends = currentUser.getFriends();
+        m.addAttribute("followingFriends", followFriends);
+        //for the nav bar
+        m.addAttribute("myProfile", true);
+        m.addAttribute("user", true);
 
+        return "feed";
+    }
 
 }
