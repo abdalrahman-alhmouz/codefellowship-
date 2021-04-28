@@ -10,6 +10,7 @@
 
 </head>
 <body>
+
     <div class="container">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_AG5ARtLnwl0DMyWqBsIdsX2lvoDhetRg-g&usqp=CAU" alt="">
             <h2>Welcome to <span th:text="${user.username}"/>'s profile ....</h2>
@@ -36,7 +37,7 @@
 
 
 
-<div th:each="post : ${user.posts}">
+<div class="bodyclass" th:each="post : ${user.posts}">
 <h3 th:text="${post.body}"> this is the body: </h3>
 
 </div>

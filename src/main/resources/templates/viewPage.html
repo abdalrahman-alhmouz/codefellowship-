@@ -21,28 +21,30 @@
 </div>
 
 
-<div th:each="post : ${user.posts}">
+<div class="bodyclass" th:each="post : ${user.posts}">
     <h3 th:text="${post.body}"> this is the body: </h3>
 
 </div>
+<p class="p">List of other users:</p>
 
-<p>List of other users:</p>
-<ul>
-    <li class="friends" th:each="val : ${allUsers}">
+<div class="list">
+
+    <ul class="friends">
+<!--    <li  th:each="val : ${allUsers}">-->
         <form method="POST" action="/AddFriend" >
-            <input name="id" type="hidden" th:value="${val.id}">
-            <input name="friend" type="hidden" th:value="${user.id}">
+            <input name="id" type="hidden" th:value="${user.id}">
+            <input name="friend" type="hidden" th:value="${userme.id}">
 <!--         <h1>   </h1>-->
 <!--            <span "${user.lastName}">sss</span>-->
 <!--            <span "${user.username}">sss</span>-->
             <button  type="submit" >follwo</button>
         </form>
-        <a th:href="@{/friends/} + ${val.id}">
-            <span th:text="${val.username}"></span><br>
+        <a th:href="@{/friends/} + ${user.id}">
+            <span th:text="${user.username}"></span><br>
 
         </a>
     </li>
 </ul>
-
+</div>
 </body>
 </html>

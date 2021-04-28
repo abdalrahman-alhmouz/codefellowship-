@@ -53,6 +53,7 @@ public String loginpage(){
         return new RedirectView("/hiMan");
     }
 
+
     @GetMapping("/myprofile")
     public String getUserProfilePage(Principal p,Model m){
         ApplicationUser applicationUser=(ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
@@ -82,17 +83,17 @@ public String loginpage(){
 //    public String getAlbum(@PathVariable(value="id")Integer id ,Model m){
 //        ApplicationUser user=applicationUserRepository.findById(id).get();
 //        m.addAttribute("user",user);
-//
-
-//
 //        return "viewPage.html";
 //    }
 
 
 @GetMapping("/view/{id}")
-public String getAlbum(@PathVariable(value="id")Integer id ,Model m){
+public String getAlbum(@PathVariable(value="id")Integer id ,Model m,Principal p){
     ApplicationUser user=applicationUserRepository.findById(id).get();
     m.addAttribute("user",user);
+
+    ApplicationUser applicationUser=(ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
+    m.addAttribute("userme",applicationUserRepository.findById(applicationUser.id).get() );
 
     Iterable<ApplicationUser> allUsers = applicationUserRepository.findAll();
     m.addAttribute("allUsers",allUsers);

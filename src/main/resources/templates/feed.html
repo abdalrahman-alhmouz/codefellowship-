@@ -2,14 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Feed Page</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!--Executed by the browser-->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-    <h1>Your Feed</h1>
+<div class="feed">
+    <h1>Your friends post  :</h1>
     <div th:if="${followingFriends.size()==0}">
         <p>You are not Following any users, therefore no feeds</p>
     </div>
@@ -25,7 +22,7 @@
 
                 <ul>
                     <li th:each="post: ${p.posts}">
-                        <p th:text="${post.body}"> |  Created At: <span th:text="${post.createdAt}"></span> </p>
+                        <p th:text="${post.body}">   Created At: <span th:text="${post.createdAt}"></span> </p>
                     </li>
                 </ul>
 
