@@ -6,6 +6,10 @@
 -  create constructuer ,setter and getter for user information 
  - create interface ApplicationUserRepository with findByUsername method ;
 
+- create UserDetailsServiceImp class  implementing UserDetails -
+
+- create webSecurityConfig class  extending  WebSecurityConfigurerAdapter -
+
 
 - create postPage class:
 -  create constructuer ,setter and getter for user post ; 
