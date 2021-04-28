@@ -27,6 +27,16 @@
 
 - 7 - ("/view/{id}") route that accept id in the param then get the user id  from dataBase then display  the users information each user by his id  in th  viewPage page 
 
+*  Navigate to localhost:port8080 to basic splash page.
+Home: http://localhost:8080/hiMan.
+SignUp: http://localhost:8080/login 
+logIn: http://localhost:8080/login 
+user list: http://localhost:8080/view/{id} 
+
+user Profile: http://localhost:8080/myprofile
+ 
+Running the application:
+
 
 
 
