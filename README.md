@@ -29,16 +29,18 @@
 
 - 8 - PostMapping("/AddFriend") with addFriend method  that accept id in the param  and id friend then get the user id and friend id then add it to th friends list and save it into the data base then  from dataBase  display  the users information each user with   his posts  in th  feed page .
 
-- 8 - ("/friends/{id}") route that accept id in the param then get the user id  from dataBase then display  the users information each user by his id  in th  test page .
+- 9 - ("/friends/{id}") route that accept id in the param then get the user id  from dataBase then display  the users information each user by his id  in th  test page .
 
-- 9 - ("/login") route that display  feed page (frinds profile with ther posts )
+- 10 - ("/login") route that display  feed page (frinds profile with ther posts )
 
 
 *  Navigate to localhost:port8080 to basic splash page.
 Home: http://localhost:8080/hiMan.
 SignUp: http://localhost:8080/login 
 logIn: http://localhost:8080/login 
-user list: http://localhost:8080/view/{id} 
+user list: http://localhost:8080/view/{id}
+
+friends paeg: http://localhost:8080/friends/{id} 
 
 user Profile: http://localhost:8080/myprofile
  
