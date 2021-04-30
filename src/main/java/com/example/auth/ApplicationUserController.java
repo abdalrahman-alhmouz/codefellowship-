@@ -28,7 +28,9 @@ PostReposritry postReposritry;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 @GetMapping("/hiMan")
-public String loginpage(){
+public String loginpage(Principal p,Model m){
+    ApplicationUser applicationUser=(ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
+    m.addAttribute("user",applicationUserRepository.findById(applicationUser.id).get() );
     return "HomePage.html";
 }
     @GetMapping("/signup")
@@ -61,31 +63,27 @@ public String loginpage(){
     return "profile.html";
     }
 
+    @GetMapping("/AddPostt")
+    public String addpostt(Principal p,Model m){
+        ApplicationUser applicationUser=(ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
+        m.addAttribute("user",applicationUserRepository.findById(applicationUser.id).get() );
+        return "PostPage.html";
+    }
 
     @PostMapping("/AddPost")
     public RedirectView addPost(@RequestParam String body,Principal p){
         ApplicationUser userDetails = (ApplicationUser) ((UsernamePasswordAuthenticationToken) p).getPrincipal();
         PostPage postPage=new PostPage(body,userDetails);
         postReposritry.save(postPage);
-        return new RedirectView("/myprofile");
+        return new RedirectView("/AddPostt");
     }
-
-
 
     @GetMapping("/")
-    public String getHomePage(){
-
+    public String getHomePage(Principal p,Model m){
+        ApplicationUser applicationUser=(ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
+        m.addAttribute("user",applicationUserRepository.findById(applicationUser.id).get() );
     return "HomePage.html";
     }
-
-
-//    @GetMapping("/view/{id}")
-//    public String getAlbum(@PathVariable(value="id")Integer id ,Model m){
-//        ApplicationUser user=applicationUserRepository.findById(id).get();
-//        m.addAttribute("user",user);
-//        return "viewPage.html";
-//    }
-
 
 @GetMapping("/view/{id}")
 public String getAlbum(@PathVariable(value="id")Integer id ,Model m,Principal p){
@@ -100,32 +98,20 @@ public String getAlbum(@PathVariable(value="id")Integer id ,Model m,Principal p)
 
     return "viewPage.html";
 }
-
-
-
-    @GetMapping("/friends/{id}")
+@GetMapping("/friends/{id}")
     public String getMyProfile(@PathVariable Integer id, Model m){
         ApplicationUser friend = applicationUserRepository.findById(id).get();
         m.addAttribute("principal", friend);
 
         Iterable<ApplicationUser> allUsers = applicationUserRepository.findAll();
-        for (ApplicationUser name : allUsers) {
-            System.out.println(name.id);
-        }        System.out.println(allUsers);
         m.addAttribute("allUsers",allUsers);
         return "test.html";
     }
 
     @PostMapping("/AddFriend")
     public RedirectView addFriend(@RequestParam(value = "id") Integer id,@RequestParam(value = "friend") Integer friend) {
-        System.out.println("newfriend.friendsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
-
-
-
         ApplicationUser curfriend = applicationUserRepository.findById(id).get();
         ApplicationUser newfriend = applicationUserRepository.findById(friend).get();
-
-
 
         curfriend.friends.add(newfriend);
         newfriend.friends.add(curfriend);
