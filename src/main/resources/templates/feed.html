@@ -1,13 +1,8 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="styleProfile.css">
-
+    <title>Feed Page</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -26,12 +21,12 @@
 <body>
 
 <div class="jumbotron text-center" style="margin-bottom:0">
-    <h1>Welcome to the profile page!</h1>
-    <h2> <span th:text="${user.username}"/> profile ....</h2>
+    <h1>Welcome to the feed page!</h1>
+<!--    <h2> <span th:text="${user.username}"/> profile ....</h2>-->
 </div>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a class="navbar-brand" href="#"><span th:text="${user.username}"/></a>
+    <a class="navbar-brand" href="/">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -49,17 +44,31 @@
         </ul>
     </div>
 </nav>
-
-    <div class="container">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_AG5ARtLnwl0DMyWqBsIdsX2lvoDhetRg-g&usqp=CAU" alt="">
-            <h2>Welcome to <span th:text="${user.username}"/>'s profile ....</h2>
-            <h2>full Name : <span th:text="${user.firstName}"/>
-            -<span th:text="${user.lastName}"/></h2>
-            <h2>dateOfBirth : <span th:text="${user.dateOfBirth}"/></h2>
-            <h2>Bio <span th:text="${user.bio}"/></h2>
+<div class="feed">
+    <h1>Your friends post  :</h1>
+    <div th:if="${followingFriends.size()==0}">
+        <p>You are not Following any users, therefore no feeds</p>
     </div>
 
-<a class="a" href="AddPostt">Add post </a>
+    <div th:if="${followingFriends.size() > 0}">
+        <ul>
+            <li th:each="p:${followingFriends}">
+                <a class="a" th:href="'/friends/'+${p.id}">
+                    <p th:text="${p.firstName}+ ' '+ ${p.lastName}"></p>
+                </a>
+                <p th:text="${p.dateOfBirth}"></p>
+                <p th:text="${p.bio}"></p>
 
+                <ul>
+                    <li th:each="post: ${p.posts}">
+                        <p th:text="${post.body}">   Created At: <span th:text="${post.createdAt}"></span> </p>
+                    </li>
+                </ul>
+
+            </li>
+        </ul>
+    </div>
+</div>
 </body>
+
 </html>

@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -25,6 +26,9 @@ public class ApplicationUser implements UserDetails {
 
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PostPage> posts;
+
+    @ManyToMany
+    Set<ApplicationUser> friends;
 
     public ApplicationUser(){
 
@@ -142,4 +146,9 @@ public class ApplicationUser implements UserDetails {
     public void setPosts(List<PostPage> posts) {
         this.posts = posts;
     }
+
+
+    public Set<ApplicationUser> getFriends() { return friends; }
+
+    public void setFriends(Set<ApplicationUser> friends) { this.friends = friends; }
 }

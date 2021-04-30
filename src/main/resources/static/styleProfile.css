@@ -1,0 +1,98 @@
+*{
+    margin: 0%;
+    padding: 0;
+}
+
+body{
+    background-image: url("https://images.pexels.com/photos/4065876/pexels-photo-4065876.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+background-size: cover;
+background-repeat: no-repeat;
+color: hsl(33, 100%, 50%);
+height: 80%;
+}
+
+img{
+    width: 150px;
+    height:150px;
+    border-radius: 25px;
+}
+
+
+button{
+    height: 40px;
+    width: 80px;
+    color:black;
+background-color:orange;
+border: 2px solid beige;
+border-radius: 15px;
+}
+.container{
+    display: flex;
+    justify-content:space-between;
+    flex-direction: column;
+    left: 200px;
+    width: 60%;
+    margin: 0 30px 0 30px ;
+}
+h2{
+    margin: 20px 0;
+    border:1px solid black ;
+    border-radius: 10px 0 10px 0;
+}
+
+.forme{
+    display: flex;
+    justify-content:space-between;
+    flex-direction: column;
+    left: 200px;
+}
+label{
+    font-size: 30px;
+    color: black;
+}
+input{
+    height: 30px;
+    width: 40%;
+    border-radius: 15px 0 10px 0;
+
+}
+.bodyclass{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 24px;
+    margin-top: 20px;
+
+}
+
+.list{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: row;
+}
+
+.friends{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: row;
+}
+.p{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: row;
+    margin-left: 20px;
+    color: #000;
+font-size: 25px;
+ 
+}
+.a{
+ color:white;
+ background-color:black;
+ border: 2px solid beige;
+ height: 40px;
+     width: 180px;
+ }
