@@ -27,12 +27,12 @@ PostReposritry postReposritry;
     ApplicationUserRepository applicationUserRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
-@GetMapping("/hiMan")
-public String loginpage(Principal p,Model m){
-    ApplicationUser applicationUser=(ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
-    m.addAttribute("user",applicationUserRepository.findById(applicationUser.id).get() );
-    return "HomePage.html";
-}
+    @GetMapping("/hiMan")
+    public String loginpage(Principal p,Model m){
+        ApplicationUser applicationUser=(ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
+        m.addAttribute("user",applicationUserRepository.findById(applicationUser.id).get() );
+        return "HomePage.html";
+    }
     @GetMapping("/signup")
     public String getSignUpPage(){
         return "signup.html";
@@ -78,7 +78,7 @@ public String loginpage(Principal p,Model m){
         return new RedirectView("/AddPostt");
     }
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String getHomePage(Principal p,Model m){
         ApplicationUser applicationUser=(ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
         m.addAttribute("user",applicationUserRepository.findById(applicationUser.id).get() );
